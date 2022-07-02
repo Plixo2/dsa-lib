@@ -1,6 +1,6 @@
 [package]
 name = "dsa-lib"
-version = "0.1.4"
+version = "0.1.5"
 
 authors = ["Moritz Scheuerle <moritzscheuerle@gmail.com>"]
 license = "MIT/Apache-2.0"
@@ -13,7 +13,7 @@ A Shader generation tool from TOML to GLSL written in Rust
 categories = ["graphics", "game-engines", "rendering::engine", "rendering", "parsing"]
 
 edition = "2021"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 
 [dependencies]
 toml = "0.5.9"

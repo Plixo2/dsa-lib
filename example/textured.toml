@@ -29,6 +29,9 @@ source = '''
     uv = a_uv;
 '''
 
+[vertex.constants]
+tri_sin = "(a) sin(a)"
+
 [vertex.functions]
 sin = '''
 float r_sin(float value) {

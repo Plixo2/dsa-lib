@@ -1,7 +1,6 @@
-
-use toml::de::Error;
+use indexmap::IndexMap;
 use serde_derive::Deserialize;
-use indexmap::{IndexMap};
+use toml::de::Error;
 use toml::Value;
 
 #[cfg(test)]
@@ -10,14 +9,15 @@ mod tests {
     use std::fs::File;
     use std::io::Write;
     use std::path::Path;
+
     use crate::compile_toml;
 
     #[test]
     fn it_works() {
         let toml = fs::read_to_string("example/textured.toml").unwrap();
-        let (vertex,fragment, config) = compile_toml(toml.as_str()).unwrap();
-        println!("Vertex {}",vertex);
-        println!("Fragment {}",fragment);
+        let (vertex, fragment, _config) = compile_toml(toml.as_str()).unwrap();
+        println!("Vertex {}", vertex);
+        println!("Fragment {}", fragment);
 
         let out_file = File::create(Path::new("example/textured.vert"));
         out_file.unwrap().write_all(vertex.as_bytes()).expect("write to file");
@@ -55,8 +55,12 @@ pub fn compile_vertex(config: &Config) -> String {
     }
     builder.push('\n');
     if let Some(constants) = &config.vertex.constants.as_ref() {
-        for (name,value) in constants.iter() {
-            builder.push_str(format!("#define {} {} \n", name, value).as_str());
+        for (name, value) in constants.iter() {
+            if let Value::String(str) = value {
+                builder.push_str(format!("#define {}{} \n", name, str).as_str());
+            } else {
+                builder.push_str(format!("#define {} {} \n", name, value).as_str());
+            }
         }
     }
 
@@ -67,7 +71,7 @@ pub fn compile_vertex(config: &Config) -> String {
 
     builder.push('\n');
     if let Some(constants) = &config.vertex.functions.as_ref() {
-        for (_,value) in constants.iter() {
+        for (_, value) in constants.iter() {
             builder.push_str(format!("{} \n\n", value).as_str());
         }
     }
@@ -93,8 +97,12 @@ pub fn compile_fragment(config: &Config) -> String {
     }
     builder.push('\n');
     if let Some(constants) = &config.fragment.constants.as_ref() {
-        for (name,value) in constants.iter() {
-            builder.push_str(format!("#define {} {} \n", name, value).as_str());
+        for (name, value) in constants.iter() {
+            if let Value::String(str) = value {
+                builder.push_str(format!("#define {}{} \n", name, str).as_str());
+            } else {
+                builder.push_str(format!("#define {} {} \n", name, value).as_str());
+            }
         }
     }
 
@@ -105,7 +113,7 @@ pub fn compile_fragment(config: &Config) -> String {
 
     builder.push('\n');
     if let Some(constants) = &config.fragment.functions.as_ref() {
-        for (_,value) in constants.iter() {
+        for (_, value) in constants.iter() {
             builder.push_str(format!("{} \n\n", value).as_str());
         }
     }
@@ -125,8 +133,8 @@ pub struct Config {
 
 #[derive(Deserialize, Debug)]
 pub struct ShaderConfig {
-    constants: Option<IndexMap<String,Value>>,
-    functions: Option<IndexMap<String,String>>,
+    constants: Option<IndexMap<String, Value>>,
+    functions: Option<IndexMap<String, String>>,
     output: IndexMap<String, String>,
     source: String,
 }
