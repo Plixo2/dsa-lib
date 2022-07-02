@@ -5,9 +5,15 @@ profile = "core"
 a_pos = "vec3"
 a_uv = "vec2"
 
+
 [uniform]
 transform = "mat4"
 texture_0 = "sampler2D"
+
+
+[fragment.constants]
+SMOOTH = false
+KERNEL_SIZE = 0
 
 [fragment]
 output = { result = "vec4" }
@@ -18,8 +24,12 @@ source = '''
 
 [vertex]
 output = { uv = "vec2" }
-
 source = '''
     gl_Position = transform * vec4(a_pos, 1.0);
     uv = a_uv;
+'''
+
+[vertex.functions]
+sin = '''
+
 '''

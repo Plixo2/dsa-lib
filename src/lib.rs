@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use toml::de::Error;
 use serde_derive::Deserialize;
 use indexmap::{indexmap, IndexMap};
+use toml::Value;
 
 #[cfg(test)]
 mod tests {
@@ -55,6 +56,13 @@ pub fn compile_vertex(config: &Config) -> String {
         builder.push_str(format!("out {} {}; \n", _type, name).as_str());
     }
     builder.push('\n');
+    if let Some(constants) = &config.vertex.constants.as_ref() {
+        for (name,value) in constants.iter() {
+            builder.push_str(format!("#define {} {} \n", name, value).as_str());
+        }
+    }
+
+    builder.push('\n');
     builder.push_str("void main() {\n \n");
     builder.push_str(config.vertex.source.as_str());
     builder.push_str("\n}\n");
@@ -79,6 +87,13 @@ pub fn compile_fragment(config: &Config) -> String {
         builder.push_str(format!("out {} {}; \n", _type, name).as_str());
     }
     builder.push('\n');
+    if let Some(constants) = &config.fragment.constants.as_ref() {
+        for (name,value) in constants.iter() {
+            builder.push_str(format!("#define {} {} \n", name, value).as_str());
+        }
+    }
+
+    builder.push('\n');
     builder.push_str("void main() {\n \n");
     builder.push_str(config.fragment.source.as_str());
     builder.push_str("\n}\n");
@@ -98,6 +113,7 @@ pub struct Config {
 
 #[derive(Deserialize, Debug)]
 pub struct ShaderConfig {
+    constants: Option<IndexMap<String,Value>>,
     output: IndexMap<String, String>,
     source: String,
 }
