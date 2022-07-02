@@ -10,7 +10,7 @@ description = """
 A Shader generation tool from TOML to GLSL written in Rust
 """
 
-categories = ["Graphics", "Game engines", "Parsing tools", "Template engine", "Text processing"]
+categories = ["graphics", "game-engines", "rendering::engine", "rendering", "parsing"]
 
 edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
