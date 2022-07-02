@@ -31,5 +31,10 @@ source = '''
 
 [vertex.functions]
 sin = '''
-
+float r_sin(float value) {
+    return sin(value);
+}
 '''
+
+
+
