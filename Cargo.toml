@@ -5,11 +5,12 @@ version = "0.1.0"
 authors = ["Moritz Scheuerle <moritzscheuerle@gmail.com>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-keywords = ["glsl","toml"]
+keywords = ["glsl", "toml"]
 description = """
 A Shader generation tool from TOML to GLSL written in Rust
 """
-categories = ["glsl", "toml", "parser-implementations" , "compilers" , "Game development" , "Game engines", "Graphics" , "Hardware support" , "Parsing tools" , "Template engine" , "Text processing" , "Graphics"]
+
+categories = ["Graphics", "Game engines", "Parsing tools", "Template engine", "Text processing"]
 
 edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
