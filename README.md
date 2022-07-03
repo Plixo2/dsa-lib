@@ -89,6 +89,13 @@ void main() {
 }
 ```
 
+You can specify `Functions`, `Constants` and `Output` per Shader.
+But `Uniforms`, `Version`, `Profile` and `Layout` per Program.
+
+Vertex `Output` are also synced with Fragment input.
+
+For all examples see `examples/textured.toml`
+
 # License
 
 This project is licensed under either of
