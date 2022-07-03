@@ -1,6 +1,6 @@
 [package]
 name = "dsa-lib"
-version = "0.1.6"
+version = "0.1.7"
 
 authors = ["Moritz Scheuerle <moritzscheuerle@gmail.com>"]
 license = "MIT/Apache-2.0"
@@ -9,7 +9,7 @@ keywords = ["glsl", "toml"]
 description = """
 A Shader generation tool from TOML to GLSL written in Rust
 """
-
+repository = "https://github.com/Plixo2/dsa-lib"
 categories = ["graphics", "game-engines", "rendering::engine", "rendering", "parsing"]
 
 edition = "2021"
